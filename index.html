@@ -344,11 +344,11 @@
       </div>
       <div id="text">
         <p id="text" class="text">
-          <b>⏰Até 3<e b> tentativas</e></b>
+          <b>📊 % de Acerto: <b id="acerto">100%</b></b>
         </p>
       </div>
       <div id="text">
-        <p id="text" class="text"><b>💣Apostar: </b>3 Minas</p>
+        <p id="text" class="text"><b>💣Apostar: </b><p id="mines">3</p> Minas</p>
       </div>
       <div class="game-container">
         <div class="initial-image"></div>
@@ -475,6 +475,26 @@
           }
         }
 
+        function getRandomPercentage(min, max) {
+      return (Math.random() * (max - min) + min).toFixed(1);
+    }
+
+    function getRandomMines(min, max) {
+      return Math.floor(Math.random() * (max - min + 1) + min);
+    }
+
+    function updateValues() {
+      const acertoElement = document.getElementById('acerto');
+      const minesElement = document.getElementById('mines');
+
+      const randomPercentage = getRandomPercentage(98.5, 100);
+      const randomMines = getRandomMines(3, 5);
+
+      acertoElement.textContent = `${randomPercentage}%`;
+      minesElement.textContent = randomMines;
+    }
+    updateValues();
+
         function hackMines() {
           generatePatternButton.disabled = true;
           generatePatternButton.innerHTML = "HACKEANDO...";
@@ -491,7 +511,8 @@
             grid.classList.remove("gradient"); // Remova a classe para ocultar o reflexo
             generatePatternButton.focus();
             startTimer();
-            generatePattern(3, 5);
+            generatePattern(4, 6);
+            updateValues();
           }, 5000);
         }
 
